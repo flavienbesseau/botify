@@ -7,21 +7,28 @@ const NearEarthObjectChartData = () => {
 
   useEffect(() => {
     axios
-      .get(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY`)
+      .get(
+        `https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=hkIOiAkFnVbB1f3dvygLxj59rAXhgCZidSWHVmKl
+      `
+      )
       .then((res) => {
-        setData(
-          res.data.near_earth_objects.map((object) => {
-            return [
-              object.name,
-              object.estimated_diameter.kilometers.estimated_diameter_min,
-              object.estimated_diameter.kilometers.estimated_diameter_max,
-            ];
-          })
-        );
+        const legends = [
+          "Neo Name",
+          "Min Estimated Diameter (km)",
+          "Max Estimated Diameter (km)",
+        ];
+
+        const values = res.data.near_earth_objects.map((object) => {
+          return [
+            object.name,
+            object.estimated_diameter.kilometers.estimated_diameter_min,
+            object.estimated_diameter.kilometers.estimated_diameter_max,
+          ];
+        });
+
+        setData([legends, ...values]);
       });
   }, []);
-
-  console.log(data);
 
   return <NearEarthObjectChart data={data} />;
 };
