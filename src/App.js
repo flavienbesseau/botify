@@ -1,7 +1,11 @@
-import NearEarthObjectChart from "./components/NearEarthObjectChart";
+import NearEarthObjectChartData from "./components/NearEarthObjectChartData";
 
 function App() {
-  return <NearEarthObjectChart />;
+  return (
+    <div>
+      <NearEarthObjectChartData />
+    </div>
+  );
 }
 
 export default App;
