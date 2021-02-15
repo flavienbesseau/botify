@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { CSVLink } from "react-csv";
 import NearEarthObjectChart from "./NearEarthObjectChart";
 
 const NearEarthObjectChartData = () => {
@@ -52,6 +53,7 @@ const NearEarthObjectChartData = () => {
       >
         Change type of Visualization
       </button>
+      <CSVLink data={data}>Download CSV file</CSVLink>
       <NearEarthObjectChart data={data} type={selectedChartType} />
     </div>
   ) : (
