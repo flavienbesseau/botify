@@ -26,7 +26,16 @@ const NearEarthObjectChartData = () => {
           ];
         });
 
-        setData([legends, ...values]);
+        setData([
+          legends,
+          ...values
+            .sort((a, b) => {
+              const meanA = (a[1] + a[2]) / 2;
+              const meanB = (b[1] + b[2]) / 2;
+              return meanA - meanB;
+            })
+            .reverse(),
+        ]);
       });
   }, []);
 
