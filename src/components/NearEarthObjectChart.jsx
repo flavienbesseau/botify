@@ -21,8 +21,23 @@ const NearEarthObjectChart = (props) => {
           title: "NEO Name",
         },
       }}
-      // For tests
+      chartWrapperParams={{ view: { columns: [0, 1, 2] } }}
+      chartPackages={["corechart", "controls"]}
       rootProps={{ "data-testid": "1" }}
+      controls={[
+        {
+          controlType: "CategoryFilter",
+          options: {
+            filterColumnIndex: 3,
+            ui: {
+              labelStacking: "vertical",
+              label: "Orbital Body",
+              allowTyping: false,
+              allowMultiple: false,
+            },
+          },
+        },
+      ]}
     />
   );
 };

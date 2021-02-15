@@ -12,11 +12,11 @@ const NearEarthObjectChartData = () => {
       `
       )
       .then((res) => {
-        console.log("Finished fetching data");
         const legends = [
           "Neo Name",
           "Min Estimated Diameter (km)",
           "Max Estimated Diameter (km)",
+          "Orbiting Body",
         ];
 
         const values = res.data.near_earth_objects.map((object) => {
@@ -24,9 +24,9 @@ const NearEarthObjectChartData = () => {
             object.name,
             object.estimated_diameter.kilometers.estimated_diameter_min,
             object.estimated_diameter.kilometers.estimated_diameter_max,
+            object.close_approach_data[0].orbiting_body,
           ];
         });
-        console.log("Will set data");
         setData([
           legends,
           ...values
