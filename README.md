@@ -8,6 +8,7 @@ Founded in 2012, Botify built the interface and methodology that connects the la
 2. Javascript: https://www.javascript.com/
 3. React Google Charts: https://react-google-charts.com/
 4. ChartJs 2 React: https://www.npmjs.com/package/react-chartjs-2
+5. React-csv: https://www.npmjs.com/package/react-csv
 
 ## Prerequisites:
 
