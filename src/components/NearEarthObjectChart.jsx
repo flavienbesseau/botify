@@ -3,9 +3,8 @@ import Chart from "react-google-charts";
 const NearEarthObjectChart = (props) => {
   return (
     <Chart
-      // width={"1000px"}
-      height={"1000px"}
-      chartType="BarChart"
+      height={"90vh"}
+      chartType={props.type}
       loader={<div>Loading Chart</div>}
       data={props.data}
       options={{

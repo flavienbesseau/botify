@@ -4,6 +4,7 @@ import NearEarthObjectChart from "./NearEarthObjectChart";
 
 const NearEarthObjectChartData = () => {
   const [data, setData] = useState([]);
+  const [selectedChartType, setSelectedChartType] = useState("BarChart");
 
   useEffect(() => {
     axios
@@ -41,7 +42,18 @@ const NearEarthObjectChartData = () => {
   }, []);
 
   return data.length > 1 ? (
-    <NearEarthObjectChart data={data} />
+    <div>
+      <button
+        onClick={() =>
+          setSelectedChartType(
+            selectedChartType === "Table" ? "BarChart" : "Table"
+          )
+        }
+      >
+        Change type of Visualization
+      </button>
+      <NearEarthObjectChart data={data} type={selectedChartType} />
+    </div>
   ) : (
     <p>Sorry, no data available at this moment</p>
   );
