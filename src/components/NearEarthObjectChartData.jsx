@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
+import { Component } from "react";
 import axios from "axios";
 import NearEarthObjectChart from "./NearEarthObjectChart";
 
-const NearEarthObjectChartData = () => {
-  const [data, setData] = useState([]);
-  const [selectedChartType, setSelectedChartType] = useState("BarChart");
+class NearEarthObjectChartData extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      selectedChartType: "BarChart",
+    };
+  }
 
-  useEffect(() => {
+  fetchData() {
     axios
       .get(
         `https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=hkIOiAkFnVbB1f3dvygLxj59rAXhgCZidSWHVmKl
-      `
+    `
       )
       .then((res) => {
         const legends = [
@@ -28,35 +33,46 @@ const NearEarthObjectChartData = () => {
             object.close_approach_data[0].orbiting_body,
           ];
         });
-        setData([
-          legends,
-          ...values
-            .sort((a, b) => {
-              const meanA = (a[1] + a[2]) / 2;
-              const meanB = (b[1] + b[2]) / 2;
-              return meanA - meanB;
-            })
-            .reverse(),
-        ]);
+        this.setState({
+          data: [
+            legends,
+            ...values
+              .sort((a, b) => {
+                const meanA = (a[1] + a[2]) / 2;
+                const meanB = (b[1] + b[2]) / 2;
+                return meanA - meanB;
+              })
+              .reverse(),
+          ],
+        });
       });
-  }, []);
+  }
 
-  return data.length > 1 ? (
-    <div>
-      <button
-        onClick={() =>
-          setSelectedChartType(
-            selectedChartType === "Table" ? "BarChart" : "Table"
-          )
-        }
-      >
-        Change type of Visualization
-      </button>
-      <NearEarthObjectChart data={data} type={selectedChartType} />
-    </div>
-  ) : (
-    <p>Sorry, no data available at this moment</p>
-  );
-};
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  render() {
+    const { data, selectedChartType } = this.state;
+    return data.length > 1 ? (
+      <div>
+        <button
+          onClick={() =>
+            this.setState(
+              selectedChartType === "Table"
+                ? { selectedChartType: "BarChart" }
+                : { selectedChartType: "Table" }
+            )
+          }
+        >
+          Change type of Visualization
+        </button>
+        <NearEarthObjectChart data={data} type={selectedChartType} />
+      </div>
+    ) : (
+      <p>Sorry, no data available at this moment</p>
+    );
+  }
+}
 
 export default NearEarthObjectChartData;
